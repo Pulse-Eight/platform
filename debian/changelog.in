@@ -1,5 +1,5 @@
-kodiplatform (#PACKAGEVERSION#-#TAGREV#~#DIST#) #DIST#; urgency=low
+kodiplatform (15.0.0-1~#DIST#) #DIST#; urgency=low
 
   * Initial release
 
- -- Arne Morten Kvarving <arne.morten.kvarving@sintef.no>  Sun, 19 May 2013 02:23:53 +0200
+ -- Nobody <Nobody@kodi.tv>  Sun, 08 May 2015 11:03:53 +0100
