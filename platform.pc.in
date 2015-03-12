@@ -3,7 +3,7 @@ libdir=@libdir@
 includedir=@includedir@
 CXX=@CMAKE_CXX_COMPILER@ @CXX_STD0X_FLAGS@
 CC=@CMAKE_C_COMPILER@ @C_STD99_FLAGS@
-DEPENDENCIES=@kodiplatform_LIBRARIES@
+DEPENDENCIES=@platform_LIBRARIES@
 
 Name: @name@
 Description: @description@ @major@.@minor@

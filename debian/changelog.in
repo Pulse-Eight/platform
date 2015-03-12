@@ -1,5 +1,5 @@
-kodiplatform (15.0.0-1~#DIST#) #DIST#; urgency=low
+platform (1.0.0-1~#DIST#) #DIST#; urgency=low
 
   * Initial release
 
- -- Nobody <Nobody@kodi.tv>  Sun, 08 May 2015 11:03:53 +0100
+ -- Nobody <nobody@pulse-eight.com>  Sun, 08 May 2015 11:03:53 +0100

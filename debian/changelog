@@ -1,18 +1,6 @@
-kodiplatform (15.0.0-1~trusty) trusty; urgency=medium
-
-  * rebrand to kodi
-  * bump to Isengard
-
- -- wsnipex <wsnipex@a1.net>  Thu, 12 Feb 2015 13:28:01 +0100
-
-xbmcplatform (14.0.0-1~trusty) trusty; urgency=medium
-
-  * bump version
-
- -- wsnipex <wsnipex@a1.net>  Mon, 07 Jul 2014 08:23:48 +0200
-
-xbmcplatform (13.0.0-1~raring) raring; urgency=low
+platform (1.0.0-1~trusty) trusty; urgency=medium
 
   * Initial release
 
- -- Arne Morten Kvarving <arne.morten.kvarving@sintef.no>  Sun, 19 May 2013 02:23:53 +0200
+ -- Lars Op den Kamp <lars.opdenkamp@pulse-eight.com>  Thu, 12 Mar 2015 13:35:07 +0100
+

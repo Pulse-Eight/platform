@@ -1,0 +1,30 @@
+# - platform config mode
+#
+# Defines the following variables:
+#  platform_FOUND        - true
+#  platform_VERSION      - version of the platform library found, e.g. 0.2
+#  platform_INCLUDE_DIRS - header directories with which to compile
+#  platform_LINKER_FLAGS - flags that must be passed to the linker
+#  platform_LIBRARIES    - names of the libraries with which to link
+#  platform_LIBRARY_DIRS - directories in which the libraries are situated
+#
+# propagate these properties from one build system to the other
+set (platform_VERSION "@platform_VERSION_MAJOR@.@platform_VERSION_MINOR@")
+set (platform_INCLUDE_DIRS @platform_INCLUDE_DIRS@ @CMAKE_INSTALL_PREFIX@/include)
+set (platform_LIBRARY_DIRS "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
+set (platform_LINKER_FLAGS "@platform_LINKER_FLAGS@")
+set (platform_CONFIG_VARS "@platform_CONFIG_VARS@")
+
+# libraries come from the build tree where this file was generated
+if(WIN32)
+  set (platform_LIBRARY "@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@/platform.lib")
+else(WIN32)
+  set (platform_LIBRARY "-L@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@ -lplatform")
+endif(WIN32)
+set (platform_LIBRARIES ${platform_LIBRARY} "@platform_LIBRARIES@")
+mark_as_advanced (platform_LIBRARY)
+
+# add the library as a target, so that other things in the project including
+# this file may depend on it and get rebuild if this library changes.
+add_library (platform UNKNOWN IMPORTED)
+set_property (TARGET platform PROPERTY IMPORTED_LOCATION "${platform_LIBRARY}")

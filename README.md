@@ -1,0 +1,3 @@
+# platform
+Platform support library used by libCEC and binary add-ons for Kodi
+
