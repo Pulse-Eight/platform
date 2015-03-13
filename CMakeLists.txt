@@ -17,10 +17,8 @@ set(platform_VERSION_PATCH 0)
 
 if(WIN32)
   set(PLAT_SOURCES src/windows/dlfcn-win32.cpp
-                   src/windows/os-threads.cpp
-                   src/windows/serialport.cpp)
+                   src/windows/os-threads.cpp)
 else()
-  set(PLAT_SOURCES src/posix/serialport.cpp)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 endif()
 
@@ -52,8 +50,7 @@ ELSE(WIN32)
                 src/posix/os-types.h
           DESTINATION include/platform/posix)
 ENDIF(WIN32)
-install(FILES src/sockets/serialport.h
-              src/sockets/socket.h
+install(FILES src/sockets/socket.h
               src/sockets/tcp.h
         DESTINATION include/platform/sockets)
 install(FILES src/threads/atomics.h
@@ -61,7 +58,6 @@ install(FILES src/threads/atomics.h
               src/threads/threads.h
         DESTINATION include/platform/threads)
 install(FILES src/util/atomic.h
-              src/util/baudrate.h
               src/util/buffer.h
               src/util/StringUtils.h
               src/util/StdString.h
