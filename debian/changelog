@@ -2,5 +2,5 @@ platform (1.0.0-1~trusty) trusty; urgency=medium
 
   * Initial release
 
- -- Lars Op den Kamp <lars.opdenkamp@pulse-eight.com>  Thu, 12 Mar 2015 13:35:07 +0100
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Thu, 12 Mar 2015 13:35:07 +0100
 
