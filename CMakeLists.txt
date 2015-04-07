@@ -20,6 +20,7 @@ if(WIN32)
                    src/windows/os-threads.cpp)
 else()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
 endif()
 
 if(NOT ${CORE_SYSTEM_NAME} STREQUAL "")
