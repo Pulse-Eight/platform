@@ -13,7 +13,7 @@ set(platform_NAME platform)
 set(platform_DESCRIPTION "Platform support library")
 set(platform_VERSION_MAJOR 1)
 set(platform_VERSION_MINOR 0)
-set(platform_VERSION_PATCH 0)
+set(platform_VERSION_PATCH 1)
 
 if(WIN32)
   set(PLAT_SOURCES src/windows/dlfcn-win32.cpp
