@@ -48,6 +48,9 @@
 #include <stdint.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#if defined(__APPLE__)
+#include <IOKit/IOCFPlugIn.h>
+#endif
 
 #define LIBTYPE
 #define DECLSPEC
@@ -59,7 +62,9 @@ typedef socket_t serial_socket_t;
 #define INVALID_SERIAL_SOCKET_VALUE (-1)
 
 typedef long LONG;
+#if !defined(__APPLE__)
 typedef LONG HRESULT;
+#endif
 
 #define _FILE_OFFSET_BITS 64
 #define FILE_BEGIN              0
