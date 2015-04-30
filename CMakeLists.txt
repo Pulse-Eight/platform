@@ -1,6 +1,6 @@
 project(platform)
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.9)
 enable_language(CXX)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
@@ -13,14 +13,13 @@ set(platform_NAME platform)
 set(platform_DESCRIPTION "Platform support library")
 set(platform_VERSION_MAJOR 1)
 set(platform_VERSION_MINOR 0)
-set(platform_VERSION_PATCH 1)
+set(platform_VERSION_PATCH 2)
+
+set(CMAKE_POSITION_INDEPENDENT_CODE on)
 
 if(WIN32)
   set(PLAT_SOURCES src/windows/dlfcn-win32.cpp
                    src/windows/os-threads.cpp)
-else()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
 endif()
 
 if(NOT ${CORE_SYSTEM_NAME} STREQUAL "")

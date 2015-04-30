@@ -1,7 +1,7 @@
 Source: platform
 Priority: extra
 Maintainer: Lars Op den Kamp <lars.opdenkamp@pulse-eight.com>
-Build-Depends: debhelper (>= 8.0.0), cmake
+Build-Depends: debhelper (>= 8.0.0), cmake (>= 2.8.9)
 Standards-Version: 3.9.2
 Section: libs
 
