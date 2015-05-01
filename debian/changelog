@@ -1,3 +1,9 @@
+platform (1.0.3-1~trusty) trusty; urgency=medium
+
+  * platform.pc.in fix
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Fri, 01 May 2015 14:38:00 +0100
+
 platform (1.0.2-1~trusty) trusty; urgency=medium
 
   * Build fixes
