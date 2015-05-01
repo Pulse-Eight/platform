@@ -8,5 +8,5 @@ DEPENDENCIES=@platform_LIBRARIES@
 Name: @name@
 Description: @description@ @major@.@minor@
 Version: @major@.@minor@
-Libs: @target@ @libs@
+Libs: -L${libdir} -lplatform
 Cflags: @CMAKE_CXX_FLAGS@
