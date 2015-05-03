@@ -1,3 +1,9 @@
+platform (1.0.4-1~trusty) trusty; urgency=medium
+
+  * proper platform.pc.in fix
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Sun, 03 May 2015 21:56:00 +0100
+
 platform (1.0.3-1~trusty) trusty; urgency=medium
 
   * platform.pc.in fix
