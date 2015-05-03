@@ -1,12 +1,10 @@
 prefix=@prefix@
 libdir=@libdir@
 includedir=@includedir@
-CXX=@CMAKE_CXX_COMPILER@ @CXX_STD0X_FLAGS@
-CC=@CMAKE_C_COMPILER@ @C_STD99_FLAGS@
 DEPENDENCIES=@platform_LIBRARIES@
 
 Name: @name@
 Description: @description@ @major@.@minor@
 Version: @major@.@minor@
 Libs: -L${libdir} -lplatform
-Cflags: @CMAKE_CXX_FLAGS@
+Cflags: -I${includedir}
