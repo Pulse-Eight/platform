@@ -38,6 +38,7 @@
 #else
 #include "../posix/os-socket.h"
 #endif
+#include <string>
 
 // Common socket operations
 
