@@ -333,6 +333,12 @@ namespace PLATFORM
       event.Wait(iTimeout);
     }
 
+    void Reset(void)
+    {
+      CLockObject lock(m_mutex);
+      m_bSignaled = false;
+    }
+
   private:
     void Set(bool bBroadcast = false)
     {
