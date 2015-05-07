@@ -1,3 +1,11 @@
+platform (1.0.6-1~trusty) trusty; urgency=medium
+
+  * fixed: add include path and link the threads lib
+  * (re-)added: public Reset() function in CEvent
+  * sync UseMultiArch.cmake
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Thu, 07 May 2015 21:20:00 +0100
+
 platform (1.0.5-1~trusty) trusty; urgency=medium
 
   * fixed: missing #include <string> in socket.h
