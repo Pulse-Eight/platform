@@ -22,6 +22,12 @@ if(WIN32)
                    src/windows/os-threads.cpp)
 endif()
 
+set(platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/platform")
+IF(WIN32)
+  LIST(APPEND platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/platform/windows")
+ENDIF(WIN32)
+set(platform_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
+
 if(NOT ${CORE_SYSTEM_NAME} STREQUAL "")
   if(${CORE_SYSTEM_NAME} STREQUAL "darwin" OR ${CORE_SYSTEM_NAME} STREQUAL "ios")
     list(APPEND platform_LIBRARIES "-framework CoreVideo -framework IOKit")
