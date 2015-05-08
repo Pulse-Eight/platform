@@ -50,7 +50,7 @@
 #include <sys/stat.h>
 #if defined(__APPLE__)
 // for HRESULT
-#include <IOKit/IOCFPlugIn.h>
+#include <CoreFoundation/CFPlugInCOM.h>
 #endif
 
 #define LIBTYPE
