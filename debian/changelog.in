@@ -1,3 +1,9 @@
+platform (1.0.7-1~#DIST#) #DIST#; urgency=medium
+
+  * fixed: include on OS X
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Fri, 08 May 2015 22:15:23 +0100
+
 platform (1.0.6-1~#DIST#) #DIST#; urgency=medium
 
   * fixed: add include path and link the threads lib
