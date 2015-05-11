@@ -1,3 +1,11 @@
+platform (1.0.8-1~#DIST#) #DIST#; urgency=medium
+
+  * added: cdevsocket.h character device socket
+  * fixed: guards for #defines on OS X and iOS for values already defined in
+    CFPlugInCOM.h
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Mon, 11 May 2015 09:33:17 +0100
+
 platform (1.0.7-1~#DIST#) #DIST#; urgency=medium
 
   * fixed: include on OS X
