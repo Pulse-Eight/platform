@@ -75,16 +75,33 @@ typedef LONG HRESULT;
 #define FILE_END                2
 
 // Success codes
+#ifndef S_OK
 #define S_OK           0L
+#endif
+
+#ifndef S_FALSE
 #define S_FALSE        1L
+#endif
+
+#ifndef FAILED
 #define FAILED(Status) ((HRESULT)(Status)<0)
+#endif
+
+#ifndef SUCCEEDED
 #define SUCCEEDED(hr) (((HRESULT)(hr)) >= 0)
+#endif
 
 // Error codes
 #define ERROR_FILENAME_EXCED_RANGE 206L
 #define ERROR_INVALID_NAME         123L
+
+#ifndef E_OUTOFMEMORY
 #define E_OUTOFMEMORY              0x8007000EL
+#endif
+
+#ifndef E_FAIL
 #define E_FAIL                     0x8004005EL
+#endif
 
 #ifdef TARGET_LINUX
 #include <limits.h>
