@@ -56,7 +56,8 @@ ELSE(WIN32)
                 src/posix/os-types.h
           DESTINATION include/platform/posix)
 ENDIF(WIN32)
-install(FILES src/sockets/socket.h
+install(FILES src/sockets/cdevsocket.h
+              src/sockets/socket.h
               src/sockets/tcp.h
         DESTINATION include/platform/sockets)
 install(FILES src/threads/atomics.h

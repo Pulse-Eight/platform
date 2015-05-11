@@ -61,6 +61,8 @@ typedef socket_t tcp_socket_t;
 #define INVALID_SOCKET_VALUE        (-1)
 typedef socket_t serial_socket_t;
 #define INVALID_SERIAL_SOCKET_VALUE (-1)
+typedef socket_t chardev_socket_t;
+#define INVALID_CHARDEV_SOCKET_VALUE (-1)
 
 typedef long LONG;
 #if !defined(__APPLE__)
