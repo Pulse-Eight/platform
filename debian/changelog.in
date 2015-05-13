@@ -1,3 +1,9 @@
+platform (1.0.9-1~#DIST#) #DIST#; urgency=medium
+
+  * fixed: add missing stdio.h include in windows/os-socket.h
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Wed, 13 May 2015 10:01:43 +0100
+
 platform (1.0.8-1~#DIST#) #DIST#; urgency=medium
 
   * added: cdevsocket.h character device socket
