@@ -37,6 +37,7 @@
 #include <ws2spi.h>
 #include <ws2ipdef.h>
 #include <ws2tcpip.h>
+#include <stdio.h>
 
 #define SHUT_RDWR SD_BOTH
 
