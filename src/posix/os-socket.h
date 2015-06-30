@@ -320,8 +320,11 @@ namespace PLATFORM
         else if (iPollResult == -1)
           *iError = errno;
 
-        socklen_t errlen = sizeof(int);
-        getsockopt(socket, SOL_SOCKET, SO_ERROR, (void *)iError, &errlen);
+        if (*iError == 0)
+        {
+          socklen_t errlen = sizeof(int);
+          getsockopt(socket, SOL_SOCKET, SO_ERROR, (void *)iError, &errlen);
+        }
       }
       else
       {
