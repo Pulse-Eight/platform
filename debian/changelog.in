@@ -1,3 +1,9 @@
+platform (1.0.10-1~#DIST#) #DIST#; urgency=medium
+
+  * fixed: posix socket return value for connect
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Tue, 30 Jun 2015 10:53:06 +0100
+
 platform (1.0.9-1~#DIST#) #DIST#; urgency=medium
 
   * fixed: add missing stdio.h include in windows/os-socket.h
