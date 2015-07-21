@@ -34,6 +34,9 @@ if ("${CMAKE_SYSTEM_NAME}" MATCHES "Linux" AND
     set (_libdir_def "lib")
     set (_libdir_noarch "lib")
   endif ()
+else ()
+  set (_libdir_def "lib")
+  set (_libdir_noarch "lib")
 endif ()
 
 # let the user override if somewhere else is desirable
