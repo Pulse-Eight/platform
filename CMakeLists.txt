@@ -29,7 +29,7 @@ ENDIF(WIN32)
 set(platform_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
 
 if(NOT ${CORE_SYSTEM_NAME} STREQUAL "")
-  if(${CORE_SYSTEM_NAME} STREQUAL "darwin" OR ${CORE_SYSTEM_NAME} STREQUAL "ios")
+  if(${CORE_SYSTEM_NAME} STREQUAL "osx" OR ${CORE_SYSTEM_NAME} STREQUAL "ios")
     list(APPEND platform_LIBRARIES "-framework CoreVideo -framework IOKit")
   endif()
 endif()
