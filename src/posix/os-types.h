@@ -36,7 +36,7 @@
 #include <string.h>
 #include <errno.h>
 #include <sys/time.h>
-#if !defined(__APPLE__) && !defined(__FreeBSD__)
+#if !defined(__APPLE__) && !defined(__FreeBSD__) && !defined(__NetBSD__)
 #include <sys/prctl.h>
 #endif
 #include <pthread.h>
