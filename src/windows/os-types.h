@@ -84,7 +84,11 @@ typedef _W64 int   ssize_t;
 #endif
 
 /* Prevent deprecation warnings */
+#if defined(_MSC_VER) && _MSC_VER >= 1900
+//snprintf is defined in Visual Studio 2015 or higher
+#else
 #define snprintf _snprintf
+#endif
 #define strnicmp _strnicmp
 
 #if defined(_MSC_VER)
