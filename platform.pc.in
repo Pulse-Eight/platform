@@ -1,10 +1,10 @@
-prefix=@prefix@
-libdir=@libdir@
-includedir=@includedir@
+prefix=@CMAKE_INSTALL_PREFIX@
+libdir=@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@
+includedir=@CMAKE_INSTALL_PREFIX@/include
 DEPENDENCIES=@platform_LIBRARIES@
 
-Name: @name@
-Description: @description@ @major@.@minor@
-Version: @major@.@minor@
+Name: @platform_NAME@
+Description: @platform_DESCRIPTION@ @platform_VERSION_MAJOR@.@platform_VERSION_MINOR@
+Version: @platform_VERSION_MAJOR@.@platform_VERSION_MINOR@.@platform_VERSION_PATCH@
 Libs: -L${libdir} -lplatform
 Cflags: -I${includedir}

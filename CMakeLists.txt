@@ -73,14 +73,7 @@ install(FILES src/util/atomic.h
         DESTINATION include/platform/util)
 
 IF(NOT WIN32)
-  # Pkgconfig
-  include(PkgConfigHandler.cmake)
-  configure_pc_file(platform platform.pc.in
-                                 platform.pc
-                                 ${CMAKE_INSTALL_PREFIX}
-                                 ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}
-                                 ${CMAKE_INSTALL_PREFIX}/include)
-
+  configure_file(platform.pc.in platform.pc)
   install(FILES ${CMAKE_BINARY_DIR}/platform.pc
           DESTINATION ${CMAKE_INSTALL_LIBDIR_NOARCH}/pkgconfig)
 ENDIF(NOT WIN32)
