@@ -68,6 +68,7 @@ typedef wchar_t Wchar_t; /* sizeof(wchar_t) = 2 bytes on Windows */
 #include <stddef.h>
 #include <process.h>
 #include <stdint.h>
+#include <stdio.h>
 
 typedef SOCKET tcp_socket_t;
 #define INVALID_SOCKET_VALUE        INVALID_SOCKET
@@ -84,7 +85,9 @@ typedef _W64 int   ssize_t;
 #endif
 
 /* Prevent deprecation warnings */
+#ifndef snprintf
 #define snprintf _snprintf
+#endif
 #define strnicmp _strnicmp
 
 #if defined(_MSC_VER)
