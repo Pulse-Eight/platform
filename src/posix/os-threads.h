@@ -37,7 +37,7 @@
 #  endif
 #endif
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   inline pthread_mutexattr_t *GetRecursiveMutexAttribute(void)
   {

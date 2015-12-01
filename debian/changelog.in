@@ -1,3 +1,9 @@
+p8-platform (2.0.0-1~#DIST#) #DIST#; urgency=medium
+
+  * renamed to p8-platform
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Tue, 01 Dec 2015 03:22:00 +0100
+
 platform (2.0.0-1~#DIST#) #DIST#; urgency=medium
 
   * removed: fstrcmp and StringUtils::CompareFuzzy() +

@@ -42,7 +42,7 @@
 
 // Common socket operations
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   class ISocket : public PreventCopy
   {

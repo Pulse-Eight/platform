@@ -41,7 +41,7 @@
 
 #include "../util/timeutils.h"
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   class PreventCopy
   {

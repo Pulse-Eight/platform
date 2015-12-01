@@ -1,4 +1,4 @@
-project(platform)
+project(p8-platform)
 
 cmake_minimum_required(VERSION 2.8.9)
 enable_language(CXX)
@@ -9,11 +9,11 @@ find_package(Threads REQUIRED)
 include(UseMultiArch.cmake)
 include(CheckAtomic.cmake)
 
-set(platform_NAME platform)
-set(platform_DESCRIPTION "Platform support library")
-set(platform_VERSION_MAJOR 2)
-set(platform_VERSION_MINOR 0)
-set(platform_VERSION_PATCH 0)
+set(p8-platform_NAME p8-platform)
+set(p8-platform_DESCRIPTION "Pulse-Eight platform support library")
+set(p8-platform_VERSION_MAJOR 2)
+set(p8-platform_VERSION_MINOR 0)
+set(p8-platform_VERSION_PATCH 0)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE on)
 
@@ -22,64 +22,64 @@ if(WIN32)
                    src/windows/os-threads.cpp)
 endif()
 
-set(platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/platform")
+set(p8-platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/p8-platform")
 IF(WIN32)
-  LIST(APPEND platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/platform/windows")
+  LIST(APPEND p8-platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/p8-platform/windows")
 ENDIF(WIN32)
-set(platform_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
+set(p8-platform_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
 
 if(NOT ${CORE_SYSTEM_NAME} STREQUAL "")
   if(${CORE_SYSTEM_NAME} STREQUAL "osx" OR ${CORE_SYSTEM_NAME} STREQUAL "ios")
-    list(APPEND platform_LIBRARIES "-framework CoreVideo -framework IOKit")
+    list(APPEND p8-platform_LIBRARIES "-framework CoreVideo -framework IOKit")
   endif()
 endif()
 
 set(SOURCES src/util/StringUtils.cpp)
 
-add_library(platform ${SOURCES} ${PLAT_SOURCES})
-target_link_libraries(platform ${platform_LIBRARIES})
-set_target_properties(platform PROPERTIES VERSION ${platform_VERSION_MAJOR}.${platform_VERSION_MINOR}.${platform_VERSION_PATCH}
-                                              SOVERSION ${platform_VERSION_MAJOR}.0)
+add_library(p8-platform ${SOURCES} ${PLAT_SOURCES})
+target_link_libraries(p8-platform ${p8-platform_LIBRARIES})
+set_target_properties(p8-platform PROPERTIES VERSION ${p8-platform_VERSION_MAJOR}.${p8-platform_VERSION_MINOR}.${p8-platform_VERSION_PATCH}
+                                              SOVERSION ${p8-platform_VERSION_MAJOR}.0)
 
-install(TARGETS platform DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(FILES src/os.h DESTINATION include/platform)
+install(TARGETS p8-platform DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES src/os.h DESTINATION include/p8-platform)
 IF(WIN32)
   INSTALL(FILES src/windows/dlfcn-win32.h
                 src/windows/os-socket.h
                 src/windows/os-threads.h
                 src/windows/os-types.h
-          DESTINATION include/platform/windows)
+          DESTINATION include/p8-platform/windows)
 ELSE(WIN32)
   install(FILES src/posix/os-socket.h
                 src/posix/os-threads.h
                 src/posix/os-types.h
-          DESTINATION include/platform/posix)
+          DESTINATION include/p8-platform/posix)
 ENDIF(WIN32)
 install(FILES src/sockets/cdevsocket.h
               src/sockets/socket.h
               src/sockets/tcp.h
-        DESTINATION include/platform/sockets)
+        DESTINATION include/p8-platform/sockets)
 install(FILES src/threads/atomics.h
               src/threads/mutex.h
               src/threads/threads.h
-        DESTINATION include/platform/threads)
+        DESTINATION include/p8-platform/threads)
 install(FILES src/util/atomic.h
               src/util/buffer.h
               src/util/StringUtils.h
               src/util/StdString.h
               src/util/timeutils.h
               src/util/util.h
-        DESTINATION include/platform/util)
+        DESTINATION include/p8-platform/util)
 
 IF(NOT WIN32)
-  configure_file(platform.pc.in platform.pc)
-  install(FILES ${CMAKE_BINARY_DIR}/platform.pc
+  configure_file(p8-platform.pc.in p8-platform.pc)
+  install(FILES ${CMAKE_BINARY_DIR}/p8-platform.pc
           DESTINATION ${CMAKE_INSTALL_LIBDIR_NOARCH}/pkgconfig)
 ENDIF(NOT WIN32)
 
 # config mode
-configure_file (platform-config.cmake.in
-                platform-config.cmake @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/platform-config.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR_NOARCH}/platform)
+configure_file (p8-platform-config.cmake.in
+                p8-platform-config.cmake @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/p8-platform-config.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR_NOARCH}/p8-platform)
 

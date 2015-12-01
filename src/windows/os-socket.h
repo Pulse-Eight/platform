@@ -45,7 +45,7 @@
 #define ETIMEDOUT 138
 #endif
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   #ifndef MSG_WAITALL
   #define MSG_WAITALL 0x8

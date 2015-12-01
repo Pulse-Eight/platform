@@ -34,7 +34,7 @@
 #include "../threads/mutex.h"
 #include <queue>
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   template<typename _BType>
     struct SyncedBuffer

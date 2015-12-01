@@ -42,7 +42,7 @@
 #include <sys/time.h>
 #endif
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   #if defined(__WINDOWS__)
   struct timezone

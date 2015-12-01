@@ -31,7 +31,7 @@
  *     http://www.pulse-eight.net/
  */
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   #define thread_t                                 HANDLE
   #define ThreadsWait(thread, retVal)              (::WaitForSingleObject(thread, INFINITE) < 0)
