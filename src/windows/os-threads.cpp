@@ -32,7 +32,7 @@
 
 #include "../os.h"
 #include "os-threads.h"
-using namespace PLATFORM;
+using namespace P8PLATFORM;
 
 static ConditionArg                     g_InitializeConditionVariable;
 static ConditionArg                     g_WakeConditionVariable;

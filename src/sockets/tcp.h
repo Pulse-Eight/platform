@@ -34,7 +34,7 @@
 #include "socket.h"
 
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   class CTcpSocket : public CCommonSocket<tcp_socket_t>
   {

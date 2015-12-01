@@ -33,7 +33,7 @@
 
 #include "mutex.h"
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   class CThread
   {

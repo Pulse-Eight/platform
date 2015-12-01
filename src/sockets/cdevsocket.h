@@ -43,7 +43,7 @@
 
 #include "socket.h"
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   class CCDevSocket : public CCommonSocket<chardev_socket_t>
   {

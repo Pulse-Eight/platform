@@ -21,7 +21,7 @@
 
 #include "../os.h"
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   ///////////////////////////////////////////////////////////////////////////
   // 32-bit atomic compare-and-swap

@@ -49,7 +49,7 @@
 #define SOL_TCP IPPROTO_TCP
 #endif
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   // Standard sockets
   //@{
