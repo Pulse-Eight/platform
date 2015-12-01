@@ -1,3 +1,10 @@
+platform (2.0.0-1~trusty) trusty; urgency=medium
+
+  * removed: fstrcmp and StringUtils::CompareFuzzy() +
+    StringUtils::FindBestMatch() because of an incompatible license
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Tue, 01 Dec 2015 02:48:06 +0100
+
 platform (1.0.10-1~trusty) trusty; urgency=medium
 
   * fixed: posix socket return value for connect

@@ -11,9 +11,9 @@ include(CheckAtomic.cmake)
 
 set(platform_NAME platform)
 set(platform_DESCRIPTION "Platform support library")
-set(platform_VERSION_MAJOR 1)
+set(platform_VERSION_MAJOR 2)
 set(platform_VERSION_MINOR 0)
-set(platform_VERSION_PATCH 10)
+set(platform_VERSION_PATCH 0)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE on)
 
@@ -34,8 +34,7 @@ if(NOT ${CORE_SYSTEM_NAME} STREQUAL "")
   endif()
 endif()
 
-set(SOURCES src/util/fstrcmp.c
-            src/util/StringUtils.cpp)
+set(SOURCES src/util/StringUtils.cpp)
 
 add_library(platform ${SOURCES} ${PLAT_SOURCES})
 target_link_libraries(platform ${platform_LIBRARIES})

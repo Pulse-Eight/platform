@@ -181,8 +181,6 @@ public:
   static int DateStringToYYYYMMDD(const std::string &dateString);
   static void WordToDigits(std::string &word);
   static std::string CreateUUID();
-  static double CompareFuzzy(const std::string &left, const std::string &right);
-  static int FindBestMatch(const std::string &str, const std::vector<std::string> &strings, double &matchscore);
   static bool ContainsKeyword(const std::string &str, const std::vector<std::string> &keywords);
 
   /*! \brief Escapes the given string to be able to be used as a parameter.
