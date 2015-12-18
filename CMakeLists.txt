@@ -30,7 +30,7 @@ set(p8-platform_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
 
 if(NOT ${CORE_SYSTEM_NAME} STREQUAL "")
   if(${CORE_SYSTEM_NAME} STREQUAL "osx" OR ${CORE_SYSTEM_NAME} STREQUAL "ios")
-    list(APPEND p8-platform_LIBRARIES "-framework CoreVideo -framework IOKit")
+    list(APPEND p8-platform_LIBRARIES "-framework CoreVideo")
   endif()
 endif()
 
