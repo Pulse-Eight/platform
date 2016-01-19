@@ -13,7 +13,7 @@ set(platform_NAME platform)
 set(platform_DESCRIPTION "Platform support library")
 set(platform_VERSION_MAJOR 2)
 set(platform_VERSION_MINOR 0)
-set(platform_VERSION_PATCH 0)
+set(platform_VERSION_PATCH 1)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE on)
 

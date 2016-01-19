@@ -1,3 +1,9 @@
+platform (2.0.1-1~#DIST#) #DIST#; urgency=medium
+
+  * backport: Avoid that cmake removes variables from pkg-config file
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Tue, 19 Jan 2016 20:48:37 +0100
+
 platform (2.0.0-1~#DIST#) #DIST#; urgency=medium
 
   * removed: fstrcmp and StringUtils::CompareFuzzy() +
