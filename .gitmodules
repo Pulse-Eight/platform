@@ -1,0 +1,3 @@
+[submodule "support"]
+	path = support
+	url = git@github.com:Pulse-Eight/libcec-support.git
