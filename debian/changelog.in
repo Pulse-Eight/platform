@@ -1,3 +1,14 @@
+p8-platform (2.1.0.1~#DIST#) #DIST#; urgency=medium
+
+  * [tvos] remove IOKit linkage. credits @Memphiz
+  * [posix] use standard SO versioning. credits @rbalint
+  * [posix] install pkg-config and .cmake files in arch-specific libdirs.
+    credits @rbalint
+  * [posix] fixed: wrong timeout in SocketRead(). closes #27. credits @SeppSTA
+  * [windows] added support files for building
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Mon, 24 Oct 2016 10:56:12 +0100
+
 p8-platform (2.0.1-1~#DIST#) #DIST#; urgency=medium
 
   * Avoid that cmake removes variables from pkg-config file
