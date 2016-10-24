@@ -74,12 +74,12 @@ install(FILES src/util/atomic.h
 IF(NOT WIN32)
   configure_file(p8-platform.pc.in p8-platform.pc @ONLY)
   install(FILES ${CMAKE_BINARY_DIR}/p8-platform.pc
-          DESTINATION ${CMAKE_INSTALL_LIBDIR_NOARCH}/pkgconfig)
+          DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 ENDIF(NOT WIN32)
 
 # config mode
 configure_file (p8-platform-config.cmake.in
                 p8-platform-config.cmake @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/p8-platform-config.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR_NOARCH}/p8-platform)
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/p8-platform)
 
