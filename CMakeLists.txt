@@ -18,7 +18,8 @@ set(p8-platform_VERSION_PATCH 0)
 set(CMAKE_POSITION_INDEPENDENT_CODE on)
 
 if(WIN32)
-  set(PLAT_SOURCES src/windows/dlfcn-win32.cpp
+  set(PLAT_SOURCES src/windows/CharsetConverter.cpp
+                   src/windows/dlfcn-win32.cpp
                    src/windows/os-threads.cpp)
 endif()
 
@@ -44,7 +45,8 @@ set_target_properties(p8-platform PROPERTIES VERSION ${p8-platform_VERSION_MAJOR
 install(TARGETS p8-platform DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES src/os.h DESTINATION include/p8-platform)
 IF(WIN32)
-  INSTALL(FILES src/windows/dlfcn-win32.h
+  INSTALL(FILES src/windows/CharsetConverter.h
+                src/windows/dlfcn-win32.h
                 src/windows/os-socket.h
                 src/windows/os-threads.h
                 src/windows/os-types.h

@@ -34,86 +34,28 @@
 #include "os-threads.h"
 using namespace P8PLATFORM;
 
-static ConditionArg                     g_InitializeConditionVariable;
-static ConditionArg                     g_WakeConditionVariable;
-static ConditionArg                     g_WakeAllConditionVariable;
-static ConditionMutexArg                g_SleepConditionVariableCS;
-
-// check whether vista+ conditions are available at runtime
-static bool CheckVistaConditionFunctions(void)
-{
-  static int iHasVistaConditionFunctions(-1);
-  if (iHasVistaConditionFunctions == -1)
-  {
-    HMODULE handle = GetModuleHandle("Kernel32");
-    if (handle == NULL)
-    {
-      iHasVistaConditionFunctions = 0;
-    }
-    else
-    {
-      g_InitializeConditionVariable = (ConditionArg)     GetProcAddress(handle,"InitializeConditionVariable");
-      g_WakeConditionVariable       = (ConditionArg)     GetProcAddress(handle,"WakeConditionVariable");
-      g_WakeAllConditionVariable    = (ConditionArg)     GetProcAddress(handle,"WakeAllConditionVariable");
-      g_SleepConditionVariableCS    = (ConditionMutexArg)GetProcAddress(handle,"SleepConditionVariableCS");
-
-      // 1 when everything is resolved, 0 otherwise
-      iHasVistaConditionFunctions = g_InitializeConditionVariable &&
-                                    g_WakeConditionVariable &&
-                                    g_WakeAllConditionVariable &&
-                                    g_SleepConditionVariableCS ? 1 : 0;
-    }
-  }
-  return iHasVistaConditionFunctions == 1;
-}
-
 CConditionImpl::CConditionImpl(void)
 {
-  m_bOnVista = CheckVistaConditionFunctions();
-  if (m_bOnVista)
-    (*g_InitializeConditionVariable)(m_conditionVista = new CONDITION_VARIABLE);
-  else
-    m_conditionPreVista = ::CreateEvent(NULL, TRUE, FALSE, NULL);
+    ::InitializeConditionVariable(&m_conditionVista);
 }
 
 CConditionImpl::~CConditionImpl(void)
 {
-  if (m_bOnVista)
-    delete m_conditionVista;
-  else
-    ::CloseHandle(m_conditionPreVista);
 }
 
 void CConditionImpl::Signal(void)
 {
-  if (m_bOnVista)
-    (*g_WakeConditionVariable)(m_conditionVista);
-  else
-    ::SetEvent(m_conditionPreVista);
+  ::WakeConditionVariable(&m_conditionVista);
 }
 
 void CConditionImpl::Broadcast(void)
 {
-  if (m_bOnVista)
-    (*g_WakeAllConditionVariable)(m_conditionVista);
-  else
-    ::SetEvent(m_conditionPreVista);
+  ::WakeAllConditionVariable(&m_conditionVista);
 }
 
 bool CConditionImpl::Wait(mutex_t &mutex)
 {
-  if (m_bOnVista)
-  {
-    return ((*g_SleepConditionVariableCS)(m_conditionVista, mutex, INFINITE) ? true : false);
-  }
-  else
-  {
-    ::ResetEvent(m_conditionPreVista);
-    MutexUnlock(mutex);
-    DWORD iWaitReturn = ::WaitForSingleObject(m_conditionPreVista, 1000);
-    MutexLock(mutex);
-    return (iWaitReturn == 0);
-  }
+  return ::SleepConditionVariableCS(&m_conditionVista, mutex, INFINITE) ? true : false;
 }
 
 bool CConditionImpl::Wait(mutex_t &mutex, uint32_t iTimeoutMs)
@@ -121,16 +63,5 @@ bool CConditionImpl::Wait(mutex_t &mutex, uint32_t iTimeoutMs)
   if (iTimeoutMs == 0)
     return Wait(mutex);
 
-  if (m_bOnVista)
-  {
-    return ((*g_SleepConditionVariableCS)(m_conditionVista, mutex, iTimeoutMs) ? true : false);
-  }
-  else
-  {
-    ::ResetEvent(m_conditionPreVista);
-    MutexUnlock(mutex);
-    DWORD iWaitReturn = ::WaitForSingleObject(m_conditionPreVista, iTimeoutMs);
-    MutexLock(mutex);
-    return (iWaitReturn == 0);
-  }
+  return ::SleepConditionVariableCS(&m_conditionVista, mutex, iTimeoutMs) ? true : false;
 }

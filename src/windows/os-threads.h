@@ -31,6 +31,11 @@
  *     http://www.pulse-eight.net/
  */
 
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+
 namespace P8PLATFORM
 {
   #define thread_t                                 HANDLE
@@ -44,10 +49,6 @@ namespace P8PLATFORM
   #define MutexTryLock(mutex)                      (::TryEnterCriticalSection(mutex) != 0)
   #define MutexUnlock(mutex)                       ::LeaveCriticalSection(mutex)
 
-  // windows vista+ conditions
-  typedef VOID (WINAPI *ConditionArg)     (CONDITION_VARIABLE*);
-  typedef BOOL (WINAPI *ConditionMutexArg)(CONDITION_VARIABLE*, CRITICAL_SECTION*, DWORD);
-
   class CConditionImpl
   {
   public:
@@ -58,8 +59,6 @@ namespace P8PLATFORM
     bool Wait(mutex_t &mutex);
     bool Wait(mutex_t &mutex, uint32_t iTimeoutMs);
 
-    bool                m_bOnVista;
-    CONDITION_VARIABLE *m_conditionVista;
-    HANDLE              m_conditionPreVista;
+    CONDITION_VARIABLE m_conditionVista;
   };
 }
