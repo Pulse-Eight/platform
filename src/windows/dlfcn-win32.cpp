@@ -17,10 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
+#endif
 #include <windows.h>
 #include <stdio.h>
 
 #include "dlfcn-win32.h"
+#include "CharsetConverter.h"
 
 /* Note:
  * MSDN says these functions are not thread-safe. We make no efforts to have
@@ -136,7 +140,7 @@ void *dlopen( const char *file, int mode )
          * to UNIX's search paths (start with system folders instead of current
          * folder).
          */
-        hModule = LoadLibraryEx( (LPSTR) lpFileName, NULL,
+        hModule = LoadLibraryExW( p8::windows::ToW(lpFileName).c_str(), NULL,
                                  LOAD_WITH_ALTERED_SEARCH_PATH );
         /* If the object was loaded with RTLD_GLOBAL, add it to list of global
          * objects, so that its symbols may be retrieved even if the handle for
@@ -242,9 +246,17 @@ char *dlerror( void )
     ret  = copy_string( lpBuffer, sizeof(lpBuffer), "\"" );
     ret += copy_string( lpBuffer+ret, sizeof(lpBuffer)-ret, last_name );
     ret += copy_string( lpBuffer+ret, sizeof(lpBuffer)-ret, "\": " );
-    ret += FormatMessage( FORMAT_MESSAGE_FROM_SYSTEM, NULL, dwMessageId,
+
+    wchar_t* messageBuf = nullptr;
+    auto len = FormatMessageW( FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER,
+                          nullptr, dwMessageId,
                           MAKELANGID( LANG_NEUTRAL, SUBLANG_DEFAULT ),
-                          lpBuffer+ret, sizeof(lpBuffer)-ret, NULL );
+                          messageBuf, 0, nullptr );
+    if ( len > 0 )
+    {
+        ret += copy_string( lpBuffer+ret, sizeof(lpBuffer)-ret, p8::windows::FromW(messageBuf, len).c_str());
+        HeapFree(GetProcessHeap(), 0, messageBuf);
+    }
 
     if( ret > 1 )
     {
