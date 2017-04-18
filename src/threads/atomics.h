@@ -21,6 +21,10 @@
 
 #include "../os.h"
 
+#if defined(__WINDOWS__)
+#include <intrin.h>
+#endif
+
 namespace P8PLATFORM
 {
   ///////////////////////////////////////////////////////////////////////////
@@ -72,21 +76,7 @@ namespace P8PLATFORM
     return prev;
 
 #elif defined(__WINDOWS__)
-    long prev;
-    __asm
-    {
-      // Load parameters
-      mov eax, expectedVal ;
-      mov ebx, pAddr ;
-      mov ecx, swapVal ;
-
-      // Do Swap
-      lock cmpxchg dword ptr [ebx], ecx ;
-
-      // Store the return value
-      mov prev, eax;
-    }
-    return prev;
+    return _InterlockedCompareExchange(pAddr, swapVal, expectedVal);
 
 #else // Linux / OSX86 (GCC)
     long prev;
@@ -113,19 +103,7 @@ namespace P8PLATFORM
       throw "cas2 is not implemented";
 
   #elif defined(__WINDOWS__)
-    long long prev;
-    __asm
-    {
-      mov esi, pAddr ;
-      mov eax, dword ptr [expectedVal] ;
-      mov edx, dword ptr expectedVal[4] ;
-      mov ebx, dword ptr [swapVal] ;
-      mov ecx, dword ptr swapVal[4] ;
-      lock cmpxchg8b qword ptr [esi] ;
-      mov dword ptr [prev], eax ;
-      mov dword ptr prev[4], edx ;
-    }
-    return prev;
+    return _InterlockedCompareExchange64(pAddr, swapVal, expectedVal);
 
   #else // Linux / OSX86 (GCC)
     #if !defined (__x86_64)
@@ -194,15 +172,7 @@ namespace P8PLATFORM
     return val;
 
 #elif defined(__WINDOWS__)
-    long val;
-    __asm
-    {
-      mov eax, pAddr ;
-      lock inc dword ptr [eax] ;
-      mov eax, [eax] ;
-      mov val, eax ;
-    }
-    return val;
+    return _InterlockedIncrement(pAddr);
 
 #elif defined(__x86_64__)
     register long result;
@@ -272,15 +242,7 @@ namespace P8PLATFORM
     return val;
 
 #elif defined(__WINDOWS__)
-    long val;
-    __asm
-    {
-      mov eax, pAddr ;
-      lock dec dword ptr [eax] ;
-      mov eax, [eax] ;
-      mov val, eax ;
-    }
-    return val;
+    return _InterlockedDecrement(pAddr);
 
 #elif defined(__x86_64__)
     register long result;
@@ -350,15 +312,8 @@ namespace P8PLATFORM
     return val;
 
 #elif defined(__WINDOWS__)
-    __asm
-    {
-      mov eax, amount;
-      mov ebx, pAddr;
-      lock xadd dword ptr [ebx], eax;
-      mov ebx, [ebx];
-      mov amount, ebx;
-    }
-    return amount;
+    _InterlockedExchangeAdd(pAddr, amount);
+    return *pAddr;
 
 #elif defined(__x86_64__)
     register long result;
@@ -429,15 +384,8 @@ namespace P8PLATFORM
 
 #elif defined(__WINDOWS__)
     amount *= -1;
-    __asm
-    {
-      mov eax, amount;
-      mov ebx, pAddr;
-      lock xadd dword ptr [ebx], eax;
-      mov ebx, [ebx];
-      mov amount, ebx;
-    }
-    return amount;
+    _InterlockedExchangeAdd(pAddr, amount);
+    return *pAddr;
 
 #elif defined(__x86_64__)
     register long result;
