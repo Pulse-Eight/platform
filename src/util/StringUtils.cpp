@@ -668,7 +668,7 @@ vector<string> StringUtils::Split(const std::string& input, const std::string& d
   size_t sizeS2 = delimiter.size();
   size_t isize = input.size();
 
-  vector<unsigned int> positions;
+  vector<size_t> positions;
 
   newPos = input.find(delimiter, 0);
 
@@ -687,11 +687,11 @@ vector<string> StringUtils::Split(const std::string& input, const std::string& d
 
   // numFound is the number of delimiters which is one less
   // than the number of substrings
-  unsigned int numFound = positions.size();
+  size_t numFound = positions.size();
   if (iMaxStrings > 0 && numFound >= iMaxStrings)
     numFound = iMaxStrings - 1;
 
-  for ( unsigned int i = 0; i <= numFound; i++ )
+  for ( size_t i = 0; i <= numFound; i++ )
   {
     string s;
     if ( i == 0 )
@@ -1058,7 +1058,7 @@ std::string StringUtils::CreateUUID()
   if (!m_uuidInitialized)
   {
     /* use current time as the seed for rand()*/
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     m_uuidInitialized = true;
   }
 
