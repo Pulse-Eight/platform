@@ -22,10 +22,6 @@ if(WIN32)
                    src/windows/os-threads.cpp)
 endif()
 
-set(p8-platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/p8-platform")
-IF(WIN32)
-  LIST(APPEND p8-platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/p8-platform/windows")
-ENDIF(WIN32)
 set(p8-platform_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
 
 if(NOT ${CORE_SYSTEM_NAME} STREQUAL "")
