@@ -7,6 +7,7 @@
 #if defined(_WIN32) && !defined(va_copy)
 #define va_copy(dst, src) ((dst) = (src))
 #endif
+#define USES_CONVERSION
 
 // =============================================================================
 //  FILE:  StdString.h
@@ -33,9 +34,9 @@
 //
 //    From this template, we intstantiate two classes:  CStdStringA and
 //    CStdStringW.  The name "CStdString" is just a #define of one of these,
-//    based upone the UNICODE macro setting
+//    based upone the UNICODE_DUMMY macro setting
 //
-//    This header also declares our own version of the MFC/ATL UNICODE-MBCS
+//    This header also declares our own version of the MFC/ATL UNICODE_DUMMY-MBCS
 //    conversion macros.  Our version looks exactly like the Microsoft's to
 //    facilitate portability.
 //
@@ -125,7 +126,7 @@
 //          Carducci took a lot of time with me to help me figure out
 //          why some implementations of the Standard C++ Library were
 //          returning error codes for apparently successful conversions
-//          between ASCII and UNICODE.  Finally thanks to Brian Groose
+//          between ASCII and UNICODE_DUMMY.  Finally thanks to Brian Groose
 //          for helping me fix compiler signed unsigned warnings in
 //          several functions.
 //
@@ -258,7 +259,7 @@
 //    1999-AUG-20 - Improved Load() function to be more efficient by using
 //          SizeOfResource().  Thanks to Rich Zuris for this.
 //          - Corrected resource ID constructor, again thanks to Rich.
-//          - Fixed a bug that occurred with UNICODE characters above
+//          - Fixed a bug that occurred with UNICODE_DUMMY characters above
 //          the first 255 ANSI ones.  Thanks to Craig Watson.
 //          - Added missing overloads of TrimLeft() and TrimRight().
 //          Thanks to Karim Ratib for pointing them out
@@ -507,7 +508,7 @@
 //    _MBCS.  For other platforms you may set it manually if you wish.  The
 //    only effect it currently has is to cause the allocation of more space
 //    for wchar_t --> char conversions.
-//    Note that MBCS does not mean UNICODE.
+//    Note that MBCS does not mean UNICODE_DUMMY.
 //
 //  #define SS_MBCS
 //
@@ -527,23 +528,23 @@
 // #define SS_NO_LOCALE
 
 
-// Compiler Error regarding _UNICODE and UNICODE
+// Compiler Error regarding _UNICODE_DUMMY and UNICODE_DUMMY
 // -----------------------------------------------
 // Microsoft header files are screwy.  Sometimes they depend on a preprocessor
-// flag named "_UNICODE".  Other times they check "UNICODE" (note the lack of
+// flag named "_UNICODE_DUMMY".  Other times they check "UNICODE_DUMMY" (note the lack of
 // leading underscore in the second version".  In several places, they silently
 // "synchronize" these two flags this by defining one of the other was defined.
 // In older version of this header, I used to try to do the same thing.
 //
 // However experience has taught me that this is a bad idea.  You get weird
 // compiler errors that seem to indicate things like LPWSTR and LPTSTR not being
-// equivalent in UNICODE builds, stuff like that (when they MUST be in a proper
-// UNICODE  build).  You end up scratching your head and saying, "But that HAS
+// equivalent in UNICODE_DUMMY builds, stuff like that (when they MUST be in a proper
+// UNICODE_DUMMY  build).  You end up scratching your head and saying, "But that HAS
 // to compile!".
 //
 // So what should you do if you get this error?
 //
-// Make sure that both macros (_UNICODE and UNICODE) are defined before this
+// Make sure that both macros (_UNICODE_DUMMY and UNICODE_DUMMY) are defined before this
 // file is included.  You can do that by either
 //
 //    a) defining both yourself before any files get included
@@ -554,13 +555,13 @@
 //  Personally I recommend solution a) but it's your call.
 
 #ifdef _MSC_VER
-  #if defined (_UNICODE) && !defined (UNICODE)
-    #error UNICODE defined  but not UNICODE
-  //  #define UNICODE  // no longer silently fix this
+  #if defined (_UNICODE_DUMMY) && !defined (UNICODE_DUMMY)
+    #error UNICODE_DUMMY defined  but not UNICODE_DUMMY
+  //  #define UNICODE_DUMMY  // no longer silently fix this
   #endif
-  #if defined (UNICODE) && !defined (_UNICODE)
-    #error Warning, UNICODE defined  but not _UNICODE
-  //  #define _UNICODE  // no longer silently fix this
+  #if defined (UNICODE_DUMMY) && !defined (_UNICODE_DUMMY)
+    #error Warning, UNICODE_DUMMY defined  but not _UNICODE_DUMMY
+  //  #define _UNICODE_DUMMY  // no longer silently fix this
   #endif
 #endif
 
@@ -608,7 +609,7 @@ inline const Type& SSMAX(const Type& arg1, const Type& arg2)
       typedef char*      PSTR;
       typedef const wchar_t*  PCWSTR;
       typedef wchar_t*    PWSTR;
-      #ifdef UNICODE
+      #ifdef UNICODE_DUMMY
         typedef wchar_t    TCHAR;
       #else
         typedef char    TCHAR;
@@ -782,7 +783,7 @@ inline const Type& SSMAX(const Type& arg1, const Type& arg2)
 #endif
 
 // =============================================================================
-// UNICODE/MBCS conversion macros.  Made to work just like the MFC/ATL ones.
+// UNICODE_DUMMY/MBCS conversion macros.  Made to work just like the MFC/ATL ones.
 // =============================================================================
 
 #include <wchar.h>      // Added to Std Library with Amendment #1.
@@ -943,7 +944,7 @@ inline const Type& SSMAX(const Type& arg1, const Type& arg2)
 
 
 
-// Unicode/MBCS conversion macros are only available on implementations of
+// UNICODE_DUMMY/MBCS conversion macros are only available on implementations of
 // the "C" library that have the non-standard _alloca function.  As far as I
 // know that's only Microsoft's though I've heard that the function exists
 // elsewhere.
@@ -998,13 +999,13 @@ inline const Type& SSMAX(const Type& arg1, const Type& arg2)
     #define SSA2CW(pa) ((PCWSTR)SSA2W((pa)))
     #define SSW2CA(pw) ((PCSTR)SSW2A((pw)))
 
-    #ifdef UNICODE
+    #ifdef UNICODE_DUMMY
       #define SST2A  SSW2A
       #define SSA2T  SSA2W
       #define SST2CA  SSW2CA
       #define SSA2CT  SSA2CW
     // (Did you get a compiler error here about not being able to convert
-    // PTSTR into PWSTR?  Then your _UNICODE and UNICODE flags are messed
+    // PTSTR into PWSTR?  Then your _UNICODE_DUMMY and UNICODE_DUMMY flags are messed
     // up.  Best bet: #define BOTH macros before including any MS headers.)
       inline PWSTR  SST2W(PTSTR p)      { return p; }
       inline PTSTR  SSW2T(PWSTR p)      { return p; }
@@ -1019,9 +1020,9 @@ inline const Type& SSMAX(const Type& arg1, const Type& arg2)
       inline PTSTR  SSA2T(PSTR p)      { return p; }
       inline PCSTR  SST2CA(PCTSTR p)    { return p; }
       inline PCTSTR  SSA2CT(PCSTR p)      { return p; }
-    #endif // #ifdef UNICODE
+    #endif // #ifdef UNICODE_DUMMY
 
-    #if defined(UNICODE)
+    #if defined(UNICODE_DUMMY)
     // in these cases the default (TCHAR) is the same as OLECHAR
       inline PCOLESTR  SST2COLE(PCTSTR p)    { return p; }
       inline PCTSTR  SSOLE2CT(PCOLESTR p)  { return p; }
@@ -1163,7 +1164,7 @@ inline PUSTR StdCodeCvt(PUSTR pDst, int nDst, PCSTR pSrc, int nSrc)
 // to map to string functions.  However the CStdStr<> template cannot use
 // macro-based generic text mappings because its character types do not get
 // resolved until template processing which comes AFTER macro processing.  In
-// other words, the preprocessor macro UNICODE is of little help to us in the
+// other words, the preprocessor macro UNICODE_DUMMY is of little help to us in the
 // CStdStr template
 //
 // Therefore, to keep the CStdStr declaration simple, we have these inline
@@ -3558,12 +3559,12 @@ public:
         return pos == MYBASE::npos ? *this : Left(pos);
   }
 
-#if defined SS_WIN32 && !defined(UNICODE) && !defined(SS_ANSI)
+#if defined SS_WIN32 && !defined(UNICODE_DUMMY) && !defined(SS_ANSI)
 
   // CString's OemToAnsi and AnsiToOem functions are available only in
-  // Unicode builds.  However since we're a template we also need a
+  // UNICODE_DUMMY builds.  However since we're a template we also need a
   // runtime check of CT and a reinterpret_cast to account for the fact
-  // that CStdStringW gets instantiated even in non-Unicode builds.
+  // that CStdStringW gets instantiated even in non-UNICODE_DUMMY builds.
 
   void AnsiToOem()
   {
@@ -3720,7 +3721,7 @@ public:
     ULONG  nChars;
   } SSSHDR;  // as in "Standard String Stream Header"
 
-  #define SSSO_UNICODE  0x01  // the string is a wide string
+  #define SSSO_UNICODE_DUMMY  0x01  // the string is a wide string
   #define SSSO_COMPRESS  0x02  // the string is compressed
 
   // -------------------------------------------------------------------------
@@ -3747,7 +3748,7 @@ public:
     HRESULT hr    = E_FAIL;
     ASSERT(pStream != 0);
     SSSHDR hdr;
-    hdr.byCtrl    = sizeof(CT) == 2 ? SSSO_UNICODE : 0;
+    hdr.byCtrl    = sizeof(CT) == 2 ? SSSO_UNICODE_DUMMY : 0;
     hdr.nChars    = this->size();
 
 
@@ -3794,7 +3795,7 @@ public:
       // buffer. Otherwise, we have to read into an intermediate buffer
       // and convert.
 
-      if ( (hdr.byCtrl & SSSO_UNICODE) != 0 )
+      if ( (hdr.byCtrl & SSSO_UNICODE_DUMMY) != 0 )
       {
         ULONG nBytes  = hdr.nChars * sizeof(wchar_t);
         if ( sizeof(CT) == sizeof(wchar_t) )
@@ -3978,7 +3979,7 @@ inline CStdStringA operator+(const CStdStringA& s1, PCWSTR pW)
   return s1 + CStdStringA(pW);
 }
 
-#ifdef UNICODE
+#ifdef UNICODE_DUMMY
   inline CStdStringW operator+(PCWSTR pW, const CStdStringA& sA)
   {
     return CStdStringW(pW) + CStdStringW(SSREF(sA));
@@ -4226,7 +4227,7 @@ private:
 
 // Define TCHAR based friendly names for some of these functions
 
-#ifdef UNICODE
+#ifdef UNICODE_DUMMY
   //#define CStdString        CStdStringW
   typedef CStdStringW        CStdString;
   #define WUSysMessage      WUSysMessageW
@@ -4265,7 +4266,7 @@ private:
 #define StdStringLessNoCaseA    SSLNCA
 #define StdStringEqualsNoCaseA    SSENCA
 
-#ifdef UNICODE
+#ifdef UNICODE_DUMMY
   #define StdStringLessNoCase    SSLNCW
   #define StdStringEqualsNoCase  SSENCW
 #else
