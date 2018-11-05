@@ -351,7 +351,8 @@ namespace P8PLATFORM
     {
       CLockObject lock(m_mutex);
       bool bReturn(m_bSignaled);
-      if (bReturn && (--m_iWaitingThreads == 0 || !m_bBroadcast) && m_bAutoReset)
+      --m_iWaitingThreads;
+      if (bReturn && (m_iWaitingThreads == 0 || !m_bBroadcast) && m_bAutoReset)
         m_bSignaled = false;
       return bReturn;
     }
