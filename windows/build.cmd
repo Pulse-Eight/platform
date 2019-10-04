@@ -6,13 +6,13 @@ SETLOCAL
 
 SET MYDIR=%~dp0
 SET BUILDTYPE=Release
-SET VSVERSION=12
+SET VSVERSION=16
 SET INSTALLPATH=%MYDIR%..\build
 
-rmdir %MYDIR%..\build /s /q
+rmdir "%MYDIR%..\build" /s /q
 
 for %%T in (amd64 x86) do (
-  call %MYDIR%\build-lib.cmd %%T %BUILDTYPE% %VSVERSION% %INSTALLPATH%
+  call "%MYDIR%\build-lib.cmd" %%T %BUILDTYPE% %VSVERSION% "%INSTALLPATH%"
 )
 
-rmdir %MYDIR%..\build\cmake /s /q
+rmdir "%MYDIR%..\build\cmake" /s /q
