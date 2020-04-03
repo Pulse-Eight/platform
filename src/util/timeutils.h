@@ -44,7 +44,7 @@
 
 namespace P8PLATFORM
 {
-  #if defined(__WINDOWS__)
+  #if defined(__WINDOWS__) && !defined(SWIGPYTHON)
   struct timezone
   {
     int	tz_minuteswest;
@@ -68,12 +68,12 @@ namespace P8PLATFORM
     pcur_time->tv_usec = current.millitm * 1000L;
     if (tz)
     {
-      tz->tz_minuteswest = current.timezone;	/* minutes west of Greenwich  */
+      tz->tz_minuteswest = current.timezone;  /* minutes west of Greenwich  */
       tz->tz_dsttime = current.dstflag;	      /* type of dst correction  */
     }
     return 0;
   }
-  #endif
+  #endif // defined(__WINDOWS__) && !defined(SWIGPYTHON)
 
   inline int64_t GetTimeMs()
   {
