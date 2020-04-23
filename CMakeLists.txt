@@ -23,9 +23,9 @@ if(WIN32)
 endif()
 
 set(p8-platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/p8-platform")
-IF(WIN32)
+if(WIN32)
   LIST(APPEND p8-platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/p8-platform/windows")
-ENDIF(WIN32)
+endif(WIN32)
 set(p8-platform_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
 
 if(NOT ${CORE_SYSTEM_NAME} STREQUAL "")
@@ -38,23 +38,47 @@ set(SOURCES src/util/StringUtils.cpp)
 
 add_library(p8-platform ${SOURCES} ${PLAT_SOURCES})
 target_link_libraries(p8-platform ${p8-platform_LIBRARIES})
-set_target_properties(p8-platform PROPERTIES VERSION ${p8-platform_VERSION_MAJOR}.${p8-platform_VERSION_MINOR}.${p8-platform_VERSION_PATCH}
-                                              SOVERSION ${p8-platform_VERSION_MAJOR})
+set_target_properties(p8-platform
+    PROPERTIES
+    VERSION ${p8-platform_VERSION_MAJOR}.${p8-platform_VERSION_MINOR}.${p8-platform_VERSION_PATCH}
+    SOVERSION ${p8-platform_VERSION_MAJOR})
+
+if(WIN32)
+  if (MSVC)
+    # generate pdb in release mode too
+    set_target_properties(p8-platform
+        PROPERTIES
+        COMPILE_PDB_NAME_DEBUG p8-platform${CMAKE_DEBUG_POSTFIX}
+        COMPILE_PDB_NAME_RELEASE p8-platform
+        COMPILE_PDB_NAME_MINSIZEREL p8-platform
+        COMPILE_PDB_NAME_RELWITHDEBINFO p8-platform)
+
+    if (${WIN64})
+      # default setting that got removed in recent vs versions, generates a warning if set
+      string(REPLACE "/arch:SSE2" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+    endif(${WIN64})
+
+  endif(MSVC)
+
+  if (NOT ${WIN64})
+    add_definitions(-D_USE_32BIT_TIME_T)
+  endif(NOT ${WIN64})
+endif(WIN32)
 
 install(TARGETS p8-platform DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES src/os.h DESTINATION include/p8-platform)
-IF(WIN32)
-  INSTALL(FILES src/windows/dlfcn-win32.h
+if(WIN32)
+  install(FILES src/windows/dlfcn-win32.h
                 src/windows/os-socket.h
                 src/windows/os-threads.h
                 src/windows/os-types.h
           DESTINATION include/p8-platform/windows)
-ELSE(WIN32)
+else(WIN32)
   install(FILES src/posix/os-socket.h
                 src/posix/os-threads.h
                 src/posix/os-types.h
           DESTINATION include/p8-platform/posix)
-ENDIF(WIN32)
+endif(WIN32)
 install(FILES src/sockets/cdevsocket.h
               src/sockets/socket.h
               src/sockets/tcp.h
@@ -71,11 +95,17 @@ install(FILES src/util/atomic.h
               src/util/util.h
         DESTINATION include/p8-platform/util)
 
-IF(NOT WIN32)
+if(MSVC)
+  # install generated pdb
+  install(FILES $<TARGET_FILE_DIR:p8-platform>/p8-platform.pdb
+          DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+endif(MSVC)
+
+if(NOT WIN32)
   configure_file(p8-platform.pc.in p8-platform.pc @ONLY)
   install(FILES ${CMAKE_BINARY_DIR}/p8-platform.pc
           DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
-ENDIF(NOT WIN32)
+endif(NOT WIN32)
 
 # config mode
 configure_file (p8-platform-config.cmake.in

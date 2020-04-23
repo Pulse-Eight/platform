@@ -6,13 +6,15 @@ SETLOCAL
 
 SET MYDIR=%~dp0
 SET BUILDTYPE=Release
-SET VSVERSION=12
+SET VSVERSION=2019
 SET INSTALLPATH=%MYDIR%..\build
 
-rmdir %MYDIR%..\build /s /q
-
-for %%T in (amd64 x86) do (
-  call %MYDIR%\build-lib.cmd %%T %BUILDTYPE% %VSVERSION% %INSTALLPATH%
+IF EXIST "%MYDIR%..\build" (
+  RMDIR /s /q "%MYDIR%..\build"
 )
 
-rmdir %MYDIR%..\build\cmake /s /q
+FOR %%T IN (amd64 x86) DO (
+  CALL "%MYDIR%\build-lib.cmd" %%T %BUILDTYPE% %VSVERSION% "%INSTALLPATH%"
+)
+
+RMDIR /s /q "%MYDIR%..\build\cmake"
