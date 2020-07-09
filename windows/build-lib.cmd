@@ -15,6 +15,20 @@ SET INSTALLPATH=%INSTALLPATH:"=%
 SET BUILDTARGET=%INSTALLPATH%\cmake\%BUILDARCH%
 SET TARGET=%INSTALLPATH%\%BUILDARCH%
 
+rem Check support submodule
+IF NOT EXIST "%MYDIR%..\support\windows\cmake\build.cmd" (
+  rem Try to init the git submodules
+  cd "%MYDIR%.."
+  git submodule update --init -r >nul 2>&1
+
+  IF NOT EXIST "%MYDIR%..\support\windows\cmake\build.cmd" (
+    ECHO.*** support git submodule has not been checked out ***
+    ECHO.
+    ECHO.See docs\README.windows.md
+    EXIT /b 2
+  )
+)
+
 CALL "%MYDIR%..\support\windows\cmake\generate.cmd" %BUILDARCH% nmake "%MYDIR%..\" "%BUILDTARGET%" "%TARGET%" %BUILDTYPE% %VSVERSION% static
 CALL "%MYDIR%..\support\windows\cmake\build.cmd" %BUILDARCH% "%BUILDTARGET%" %VSVERSION%
 GOTO exit
