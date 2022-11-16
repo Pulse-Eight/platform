@@ -312,7 +312,8 @@ namespace P8PLATFORM
       CLockObject lock(m_mutex);
       ++m_iWaitingThreads;
 
-      bool bReturn = m_condition.Wait(m_mutex, m_bSignaled);
+      m_wait_mutex.Lock();
+      bool bReturn = m_condition.Wait(m_wait_mutex, m_bSignaled);
       return ResetAndReturn() && bReturn;
     }
 
@@ -323,7 +324,8 @@ namespace P8PLATFORM
 
       CLockObject lock(m_mutex);
       ++m_iWaitingThreads;
-      bool bReturn = m_condition.Wait(m_mutex, m_bSignaled, iTimeout);
+      m_wait_mutex.Lock();
+      bool bReturn = m_condition.Wait(m_wait_mutex, m_bSignaled, iTimeout);
       return ResetAndReturn() && bReturn;
     }
 
@@ -342,14 +344,14 @@ namespace P8PLATFORM
   private:
     void Set(bool bBroadcast = false)
     {
-      CLockObject lock(m_mutex);
+      CLockObject lock(m_wait_mutex);
       m_bSignaled  = true;
       m_bBroadcast = bBroadcast;
     }
 
     bool ResetAndReturn(void)
     {
-      CLockObject lock(m_mutex);
+      CLockObject lock(m_wait_mutex);
       bool bReturn(m_bSignaled);
       --m_iWaitingThreads;
       if (bReturn && (m_iWaitingThreads == 0 || !m_bBroadcast) && m_bAutoReset)
@@ -360,6 +362,7 @@ namespace P8PLATFORM
     volatile bool             m_bSignaled;
     CCondition<volatile bool> m_condition;
     CMutex                    m_mutex;
+    CMutex                    m_wait_mutex;
     volatile bool             m_bBroadcast;
     unsigned int              m_iWaitingThreads;
     bool                      m_bAutoReset;
