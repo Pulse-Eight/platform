@@ -13,7 +13,7 @@ set(p8-platform_NAME p8-platform)
 set(p8-platform_DESCRIPTION "Pulse-Eight platform support library")
 set(p8-platform_VERSION_MAJOR 2)
 set(p8-platform_VERSION_MINOR 1)
-set(p8-platform_VERSION_PATCH 1)
+set(p8-platform_VERSION_PATCH 2)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE on)
 
