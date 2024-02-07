@@ -33,6 +33,6 @@ Follow these instructions to compile and install the library:
 git clone https://github.com/Pulse-Eight/platform.git
 cd platform
 git submodule update --init --recursive
-cd 
+cd windows
 build.cmd
 ```
