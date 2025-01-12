@@ -37,7 +37,7 @@ GOTO exit
 ECHO.%~dp0 requires 4 parameters
 ECHO.  %~dp0 [architecture] [type] [version] [install path]
 ECHO.
-ECHO. architecture:    amd64 x86
+ECHO. architecture:    amd64 x86 arm64
 ECHO. type:            Release Debug
 ECHO. version:         Visual Studio version (2019)
 ECHO. install path:    installation path without quotes
