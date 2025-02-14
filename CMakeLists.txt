@@ -60,9 +60,9 @@ if(WIN32)
 
   endif(MSVC)
 
-  if (NOT ${WIN64})
+  if ((NOT ${WIN64}) AND (NOT ${_M_ARM64}))
     add_definitions(-D_USE_32BIT_TIME_T)
-  endif(NOT ${WIN64})
+  endif((NOT ${WIN64}) AND (NOT ${_M_ARM64}))
 endif(WIN32)
 
 install(TARGETS p8-platform DESTINATION ${CMAKE_INSTALL_LIBDIR})

@@ -13,7 +13,7 @@ IF EXIST "%MYDIR%..\build" (
   RMDIR /s /q "%MYDIR%..\build"
 )
 
-FOR %%T IN (amd64 x86) DO (
+FOR %%T IN (amd64 x86 arm64) DO (
   CALL "%MYDIR%\build-lib.cmd" %%T %BUILDTYPE% %VSVERSION% "%INSTALLPATH%"
 )
 

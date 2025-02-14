@@ -363,7 +363,7 @@
 
 #if !defined (SS_ANSI) && defined(_MSC_VER)
   #undef SS_IS_INTRESOURCE
-  #if defined(_WIN64)
+  #if defined(_WIN64) || defined(_M_ARM64)
     #define SS_IS_INTRESOURCE(_r) (((unsigned __int64)(_r) >> 16) == 0)
   #else
     #define SS_IS_INTRESOURCE(_r) (((unsigned long)(_r) >> 16) == 0)
