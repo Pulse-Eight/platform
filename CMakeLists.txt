@@ -1,6 +1,6 @@
+cmake_minimum_required(VERSION 3.12.0)
 project(p8-platform)
 
-cmake_minimum_required(VERSION 2.8.9)
 enable_language(CXX)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -49,6 +49,9 @@ set_target_properties(p8-platform
 
 if(WIN32)
   if (MSVC)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D_HAS_ITERATOR_DEBUGGING=1 /D_SECURE_SCL=1")
+    add_compile_definitions($<$<CONFIG:Debug>:_ITERATOR_DEBUG_LEVEL=2>)
+    add_compile_definitions($<$<CONFIG:Debug>:_HAS_ITERATOR_DEBUGGING=1>)
     # generate pdb in release mode too
     set_target_properties(p8-platform
         PROPERTIES
