@@ -48,6 +48,10 @@ set_target_properties(p8-platform
     SOVERSION ${p8-platform_VERSION_MAJOR})
 
 if(WIN32)
+  include(CheckSymbolExists)
+  check_symbol_exists(_AMD64_ Windows.h WIN64)
+  check_symbol_exists(_ARM64_ Windows.h ARM64)
+
   if (MSVC)
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D_HAS_ITERATOR_DEBUGGING=1 /D_SECURE_SCL=1")
     add_compile_definitions($<$<CONFIG:Debug>:_ITERATOR_DEBUG_LEVEL=2>)
@@ -60,16 +64,16 @@ if(WIN32)
         COMPILE_PDB_NAME_MINSIZEREL p8-platform
         COMPILE_PDB_NAME_RELWITHDEBINFO p8-platform)
 
-    if (${WIN64})
+    if (WIN64 OR ARM64)
       # default setting that got removed in recent vs versions, generates a warning if set
       string(REPLACE "/arch:SSE2" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
-    endif(${WIN64})
+    endif()
 
   endif(MSVC)
 
-  if ((NOT ${WIN64}) AND (NOT ${_M_ARM64}))
+  if (NOT WIN64 AND NOT ARM64)
     add_definitions(-D_USE_32BIT_TIME_T)
-  endif((NOT ${WIN64}) AND (NOT ${_M_ARM64}))
+  endif()
 endif(WIN32)
 
 install(TARGETS p8-platform DESTINATION ${CMAKE_INSTALL_LIBDIR})
