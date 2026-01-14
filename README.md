@@ -7,7 +7,7 @@ This library provides platform specific support for other libraries, and is used
 
 ## Linux, BSD & Apple OS X
 To compile this library on Linux, you'll need the following dependencies:
-* [cmake 2.6 or better] (http://www.cmake.org/)
+* [cmake 3.12.0 or better] (http://www.cmake.org/)
 * a supported C++ 11 compiler
 
 Follow these instructions to compile and install the library:
@@ -25,7 +25,7 @@ sudo ldconfig
 
 ## Microsoft Windows
 To compile this library on Windows, you'll need the following dependencies:
-* [cmake 2.6 or better] (http://www.cmake.org/)
+* [cmake 3.12.0 or better] (http://www.cmake.org/)
 * [Visual Studio 2013 (v120) or 2015 (v140)] (https://www.visualstudio.com/)
 
 Follow these instructions to compile and install the library:
