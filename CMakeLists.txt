@@ -119,6 +119,17 @@ endif(NOT WIN32)
 # because the depth varies with the libdir: lib, lib64, lib/x86_64-linux-gnu
 file (RELATIVE_PATH p8-platform_CONFIG_TO_PREFIX
       "${CMAKE_INSTALL_FULL_LIBDIR}/p8-platform" "${CMAKE_INSTALL_PREFIX}")
+
+# export a static build as STATIC rather than UNKNOWN, because cmake only adds
+# the c++ runtime for an imported library that says it's static. a shared build
+# stays UNKNOWN: it doesn't need the runtime spelled out, and SHARED would want
+# an IMPORTED_IMPLIB next to the dll on windows
+get_target_property (p8-platform_TARGET_TYPE p8-platform TYPE)
+if (p8-platform_TARGET_TYPE STREQUAL "STATIC_LIBRARY")
+  set (p8-platform_LIBRARY_TYPE "STATIC")
+else ()
+  set (p8-platform_LIBRARY_TYPE "UNKNOWN")
+endif ()
 configure_file (p8-platform-config.cmake.in
                 p8-platform-config.cmake @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/p8-platform-config.cmake

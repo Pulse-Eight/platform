@@ -35,5 +35,9 @@ mark_as_advanced (p8-platform_LIBRARY)
 
 # add the library as a target, so that other things in the project including
 # this file may depend on it and get rebuild if this library changes.
-add_library (p8-platform UNKNOWN IMPORTED)
+add_library (p8-platform @p8-platform_LIBRARY_TYPE@ IMPORTED)
 set_property (TARGET p8-platform PROPERTY IMPORTED_LOCATION "${p8-platform_LIBRARY}")
+# we're c++, so linking a static p8-platform needs the c++ runtime that the .a
+# can't ask for by itself. cmake only honours this for STATIC, and only if the
+# consumer has enabled CXX; the shared library records libstdc++ on its own
+set_property (TARGET p8-platform PROPERTY IMPORTED_LINK_INTERFACE_LANGUAGES "CXX")
