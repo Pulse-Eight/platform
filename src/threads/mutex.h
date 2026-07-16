@@ -86,7 +86,10 @@ namespace P8PLATFORM
 
     inline bool Lock(void)
     {
-      MutexLock(m_mutex);
+      // the posix MutexLock() yields the lock result and the windows one is
+      // void, so there's nothing portable to return: drop it explicitly, or
+      // every consumer compiling this header gets -Wunused-value
+      (void)MutexLock(m_mutex);
       ++m_iLockCount;
       return true;
     }
