@@ -6,33 +6,36 @@ This library provides platform specific support for other libraries, and is used
 # Supported platforms
 
 ## Linux, BSD & Apple OS X
-To compile this library on Linux, you'll need the following dependencies:
-* [cmake 2.6 or better] (http://www.cmake.org/)
+To compile this library, you'll need the following dependencies:
+* [cmake 3.12.0 or better](https://www.cmake.org/)
 * a supported C++ 11 compiler
+
+On Debian and Ubuntu, `apt-get install git cmake build-essential` pulls in these
+and the git client used below.
 
 Follow these instructions to compile and install the library:
 ```
-apt-get update
-apt-get install cmake build-essential
 git clone https://github.com/Pulse-Eight/platform.git
 mkdir platform/build
 cd platform/build
 cmake ..
 make -j4
 sudo make install
-sudo ldconfig
 ```
+
+On Linux and BSD, run `sudo ldconfig` afterwards to refresh the linker cache.
+OS X has no equivalent and doesn't need one.
 
 ## Microsoft Windows
 To compile this library on Windows, you'll need the following dependencies:
-* [cmake 2.6 or better] (http://www.cmake.org/)
-* [Visual Studio 2013 (v120) or 2015 (v140)] (https://www.visualstudio.com/)
+* [cmake 3.12.0 or better](https://www.cmake.org/)
+* [Visual Studio 2022](https://www.visualstudio.com/)
 
 Follow these instructions to compile and install the library:
 ```
 git clone https://github.com/Pulse-Eight/platform.git
 cd platform
 git submodule update --init --recursive
-cd 
+cd windows
 build.cmd
 ```
