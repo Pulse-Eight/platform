@@ -26,10 +26,6 @@ if(WIN32)
                    src/windows/os-threads.cpp)
 endif()
 
-set(p8-platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/p8-platform")
-if(WIN32)
-  LIST(APPEND p8-platform_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include/p8-platform/windows")
-endif(WIN32)
 set(p8-platform_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
 
 if(NOT ${CORE_SYSTEM_NAME} STREQUAL "")
@@ -119,6 +115,10 @@ if(NOT WIN32)
 endif(NOT WIN32)
 
 # config mode
+# how to walk back to the prefix from the installed config file. worked out here
+# because the depth varies with the libdir: lib, lib64, lib/x86_64-linux-gnu
+file (RELATIVE_PATH p8-platform_CONFIG_TO_PREFIX
+      "${CMAKE_INSTALL_FULL_LIBDIR}/p8-platform" "${CMAKE_INSTALL_PREFIX}")
 configure_file (p8-platform-config.cmake.in
                 p8-platform-config.cmake @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/p8-platform-config.cmake
