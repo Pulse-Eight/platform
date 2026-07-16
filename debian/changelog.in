@@ -1,3 +1,41 @@
+p8-platform (2.2.0~#DIST#) #DIST#; urgency=medium
+
+  * final release. this library is now in maintenance mode: everything it was
+    written to provide before C++11 is in the standard library, and libCEC, its
+    only actively developed user, is moving to std:: directly. fixes are still
+    welcome; no further development is planned.
+  * no abi or api break since 2.1.0.1: the exported symbols are unchanged and no
+    class layout, virtual or signature changed. the minor bump is for the new
+    functionality below, chiefly windows arm64 support. soname stays
+    libp8-platform.so.2
+  * [cmake] use GNUInstallDirs instead of a hand-rolled UseMultiArch.cmake. fixes
+    a relative -DCMAKE_INSTALL_LIBDIR being made absolute, which sent the library
+    and the .pc file into the build tree. closes #41
+  * [cmake] make the installed config relocatable, so it stops silently resolving
+    to a different p8-platform on the default search path. closes #38.
+    credits @bachp
+  * [cmake] export a static build as STATIC so a C project can link it. closes #35
+  * [cmake] report the patch level in the config version, so find_package() can
+    ask for a version with a given fix in it
+  * [cmake] require cmake 3.12, which also fixes the build with cmake 4.
+    closes #52. credits @bkuhls
+  * [cmake] require c++11 as the minimum standard. credits @lrusak
+  * [cmake] fix building as a submodule. credits @garbear
+  * [cmake] fix the ARM64/WIN64 symbol checks on windows. closes #51.
+    credits @fuzzard
+  * [threads] PreventCopy: block copies with = delete, and allow moves.
+    closes #33. credits @MatthewLundberg
+  * [threads] fixed -Wunused-value for every consumer that includes mutex.h
+  * [threads] fix CEvent auto-reset behaviour on a broadcast signal. credits @srg70
+  * [util] StringUtils: fix the build with -std=c++17. credits @lrusak
+  * [windows] added vs2022 and ARM64 support
+  * [docs] bring the README's build instructions up to date. closes #43.
+    credits @heitbaum, @xXP4trickXx
+  * added a .gitignore for the build dir. credits @Vavassor
+  * added LICENSE.md
+
+ -- Pulse-Eight Packaging <packaging@pulse-eight.com>  Thu, 16 Jul 2026 12:00:00 +0200
+
 p8-platform (2.1.0.1~#DIST#) #DIST#; urgency=medium
 
   * [tvos] remove IOKit linkage. credits @Memphiz

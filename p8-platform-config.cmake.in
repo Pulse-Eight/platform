@@ -2,7 +2,7 @@
 #
 # Defines the following variables:
 #  p8-platform_FOUND        - true
-#  p8-platform_VERSION      - version of the platform library found, e.g. 0.2
+#  p8-platform_VERSION      - version of the platform library found, e.g. 2.2.0
 #  p8-platform_INCLUDE_DIRS - header directories with which to compile
 #  p8-platform_LINKER_FLAGS - flags that must be passed to the linker
 #  p8-platform_LIBRARIES    - names of the libraries with which to link
@@ -18,7 +18,9 @@ get_filename_component (_p8-platform_libdir "${CMAKE_CURRENT_LIST_DIR}/.." ABSOL
 get_filename_component (_p8-platform_prefix "${CMAKE_CURRENT_LIST_DIR}/@p8-platform_CONFIG_TO_PREFIX@" ABSOLUTE)
 
 # propagate these properties from one build system to the other
-set (p8-platform_VERSION "@p8-platform_VERSION_MAJOR@.@p8-platform_VERSION_MINOR@")
+# report the patch level too: without it every 2.2.x looks like the same "2.2", so
+# there's no way to ask for the version that carries a given fix
+set (p8-platform_VERSION "@p8-platform_VERSION_MAJOR@.@p8-platform_VERSION_MINOR@.@p8-platform_VERSION_PATCH@")
 find_path (p8-platform_INCLUDE_DIRS p8-platform/os.h HINTS "${_p8-platform_prefix}/include")
 set (p8-platform_LIBRARY_DIRS "${_p8-platform_libdir}")
 set (p8-platform_LINKER_FLAGS "@p8-platform_LINKER_FLAGS@")
