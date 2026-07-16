@@ -49,9 +49,14 @@ namespace P8PLATFORM
     inline PreventCopy(void) {}
     inline ~PreventCopy(void) {}
 
-  private:
-    inline PreventCopy(const PreventCopy &c) { *this = c; }
-    inline PreventCopy &operator=(const PreventCopy &c){ (void)c; return *this; }
+    PreventCopy(const PreventCopy &c) = delete;
+    PreventCopy &operator=(const PreventCopy &c) = delete;
+
+    // moving is fine, and inheriting from this doesn't take that away. a subclass
+    // that declares a destructor still has to declare its own move, though: that
+    // suppresses the implicit one no matter what this base says
+    PreventCopy(PreventCopy &&c) = default;
+    PreventCopy &operator=(PreventCopy &&c) = default;
   };
 
   template <typename _Predicate>
