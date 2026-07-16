@@ -1,7 +1,25 @@
 ![Pulse-Eight logo](https://pulseeight.files.wordpress.com/2016/02/pulse-eight-logo-white-on-green.png?w=200)
 
 # About
-This library provides platform specific support for other libraries, and is used by libCEC and binary add-ons for Kodi
+This library provides platform specific support for other libraries. It was written before
+C++11, to supply the threading, atomics, timers, sockets and string helpers that the
+standard library did not have at the time. It is used by libCEC, and was used by binary
+add-ons for Kodi.
+
+> ## Maintenance mode — use `std::` instead
+>
+> **Don't use this library in new projects.** Everything it was written to provide is in
+> the standard library now — `std::mutex`, `std::recursive_mutex`,
+> `std::condition_variable`, `std::thread`, `std::chrono`, `std::atomic` — and the standard
+> library does it better. Use it directly and skip the dependency.
+>
+> [2.2.0](https://github.com/Pulse-Eight/platform/releases/tag/p8-platform-2.2.0) is the
+> last planned release. libCEC, the only actively developed user left, is moving to `std::`
+> directly. The Kodi binary add-ons already did.
+>
+> **Maintenance mode is not abandoned.** This repository stays open, fixes are still
+> welcome and will still be merged, and nothing installed today stops working. There is
+> simply no further development planned.
 
 # Supported platforms
 
