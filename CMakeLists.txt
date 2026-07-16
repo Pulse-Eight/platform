@@ -10,7 +10,7 @@ set(CMAKE_CXX_EXTENSIONS NO)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
 find_package(Threads REQUIRED)
-include(UseMultiArch.cmake)
+include(GNUInstallDirs)
 include(CheckAtomic.cmake)
 
 set(p8-platform_NAME p8-platform)
